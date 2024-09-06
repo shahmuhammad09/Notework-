@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notework</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&family=Open+Sans:wght@400&family=Montserrat:wght@400&family=Lobster&family=Arial:wght@400&family=Courier+New:wght@400&family=Times+New+Roman:wght@400&family=Verdana:wght@400&family=Georgia:wght@400&family=Tahoma:wght@400&family=Trebuchet+MS:wght@400&family=Palatino+Linotype:wght@400&family=Comic+Sans+MS:wght@400&family=Lucida+Console:wght@400&family=Garamond:wght@400&family=Arial+Black:wght@400&family=Courier:wght@400&family=Helvetica:wght@400&family=Impact:wght@400&family=Lucida+Sans:wght@400&family=Segoe+UI:wght@400&family=Andale+Mono:wght@400&family=Arial+Narrow:wght@400&family=Comic+Sans:wght@400&family=Consolas:wght@400&family=Helvetica+Neue:wght@400&family=Myriad+Pro:wght@400&family=Optima:wght@400&family=Futura:wght@400&family=Calibri:wght@400&family=Gill+Sans:wght@400&family=Frank+Ruhl:wght@400&family=Rockwell:wght@400&family=Century:wght@400&family=Brush+Script+MT:wght@400&family=Didot:wght@400&family=American+Typewriter:wght@400&family=Helvetica+Condensed:wght@400&family=Playfair+Display:wght@400&family=Raleway:wght@400&family=Work+Sans:wght@400&family=Julius+Sans+One:wght@400&family=Source+Sans+Pro:wght@400&family=Noto+Sans:wght@400&family=Exo:wght@400&family=Ubuntu:wght@400&family=Oxygen:wght@400&family=Cabin:wght@400&family=Archivo:wght@400&family=Anton:wght@400&family=Inconsolata:wght@400&family=Karla:wght@400&family=Hind:wght@400&family=Quicksand:wght@400&family=Zilla+Slab:wght@400&family=Arimo:wght@400&family=Russo+One:wght@400&family=Asap:wght@400&family=Overpass:wght@400&family=Hind+Siliguri:wght@400&family=Spectral:wght@400&family=IBM+Plex+Sans:wght@400&family=Poppins:wght@400&family=Mulish:wght@400&family=PT+Sans:wght@400&family=Righteous:wght@400&family=Assistant:wght@400&family=Baloo+2:wght@400&family=Gloock:wght@400&family=Fira+Sans:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+        }
+        textarea {
+            height: 400px;
+            resize: none;
+            width: 100%;
+        }
+        .save-btn {
+            background-color: #007bff;
+            color: white;
+            margin-top: 20px;
+            border: none;
+        }
+        .font-select, .size-select {
+            margin-bottom: 20px;
+        }
+        .note-area {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+        .note-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .note-title input {
+            flex: 1;
+            margin-right: 10px;
+        }
+        @media (max-width: 576px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">Notework</h1>
+
+    <div class="note-title">
+        <input type="text" id="fileName" class="form-control" placeholder="Enter file name">
+    </div>
+
+    <div class="font-select">
+        <label for="fontSelect">Font Family:</label>
+        <select id="fontSelect" class="form-control" onchange="document.querySelector('.note-area').style.fontFamily = this.value;">
+            <option value="Roboto, sans-serif">Roboto</option>
+            <option value="'Open Sans', sans-serif">Open Sans</option>
+            <option value="'Montserrat', sans-serif">Montserrat</option>
+            <option value="'Lobster', cursive">Lobster</option>
+            <!-- Add more font options as needed -->
+        </select>
+    </div>
+
+    <div class="size-select">
+        <label for="sizeSelect">Font Size:</label>
+        <select id="sizeSelect" class="form-control" onchange="document.querySelector('.note-area').style.fontSize = this.value;">
+            <option value="12px">12px</option>
+            <option value="14px">14px</option>
+            <option value="16px">16px</option>
+            <option value="18px">18px</option>
+            <option value="20px">20px</option>
+            <!-- Add more size options as needed -->
+        </select>
+    </div>
+
+    <textarea class="note-area" id="noteArea" placeholder="Start typing your notes here..."></textarea>
+
+    <button class="btn save-btn" onclick="saveTextAsFile()">Save</button>
+</div>
+
+<script>
+function saveTextAsFile() {
+    const textToSave = document.getElementById('noteArea').value;
+    const fileName = document.getElementById('fileName').value || 'notes.txt';
+    
+    const blob = new Blob([textToSave], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.download = fileName;
+    link.href = window.URL.createObjectURL(blob);
+    link.click();
+}
+</script>
+
+</body>
+</html>
